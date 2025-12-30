@@ -3,8 +3,8 @@ import dotenv from "dotenv";
 dotenv.config();
 
 // 🔍 DEBUG: check env values
-console.log("DEBUG EMAIL_USER:", process.env.EMAIL_USER);
-console.log("DEBUG EMAIL_PASS:", process.env.EMAIL_PASS);
+console.log("DEBUG BREVO USER:", process.env.BREVO_SMTP_USER);
+console.log("DEBUG BREVO PASS:", process.env.BREVO_SMTP_PASS);
 
 const transporter = nodemailer.createTransport({
   host: "smtp-relay.brevo.com",
