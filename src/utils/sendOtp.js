@@ -18,7 +18,7 @@ const transporter = nodemailer.createTransport({
 
 export const sendOtpEmail = async (email, otp) => {
   await transporter.sendMail({
-    from: `"Chat App" <${process.env.BREVO_SMTP_USER}>`,
+    from: "Chat App <anshulshakya520@gmail.com>",
     to: email,
     subject: "Your OTP Code",
     html: `
