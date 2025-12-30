@@ -1,8 +1,7 @@
 // Native fetch is available in Node 18+
-import {fetch} from "node-fetch";
 
 const register = async () => {
-  const url = "http://localhost:5002/api/auth/register";
+  const url = "http://localhost:5003/api/auth/register";
   console.log("Registering at", url);
 
   const body = {

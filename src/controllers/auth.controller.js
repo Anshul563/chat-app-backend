@@ -80,8 +80,11 @@ export const registerUser = async (req, res) => {
       message: "OTP sent to email",
     });
   } catch (error) {
-    console.error(error);
-    return res.status(500).json({ message: "Server error" });
+    console.error("❌ REGISTER ERROR:", error); // 👈 ADD THIS
+    res.status(500).json({
+      message: "Server error",
+      error: error.message, // 👈 TEMPORARY (for debug)
+    });
   }
 };
 
