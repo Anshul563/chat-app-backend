@@ -1,29 +1,20 @@
-import nodemailer from "nodemailer";
-import dotenv from "dotenv";
-dotenv.config();
+import SibApiV3Sdk from "sib-api-v3-sdk";
 
-// 🔍 DEBUG: check env values
-console.log("DEBUG BREVO USER:", process.env.BREVO_SMTP_USER);
-console.log("DEBUG BREVO PASS:", process.env.BREVO_SMTP_PASS);
+const client = SibApiV3Sdk.ApiClient.instance;
+client.authentications["api-key"].apiKey = process.env.BREVO_API_KEY;
 
-const transporter = nodemailer.createTransport({
-  host: "smtp-relay.brevo.com",
-  port: 587,
-  secure: false,
-  auth: {
-    user: process.env.BREVO_SMTP_USER,
-    pass: process.env.BREVO_SMTP_PASS,
-  },
-});
+const tranEmailApi = new SibApiV3Sdk.TransactionalEmailsApi();
 
 export const sendOtpEmail = async (email, otp) => {
-  await transporter.sendMail({
-    from: "Chat App <anshulshakya520@gmail.com>",
-    to: email,
+  await tranEmailApi.sendTransacEmail({
+    sender: {
+      email: "anshulshakya520@gmail.com", // VERIFIED SENDER
+      name: "Chat App",
+    },
+    to: [{ email }],
     subject: "Your OTP Code",
-    html: `
+    htmlContent: `
       <h2>Email Verification</h2>
-      <p>Your OTP is:</p>
       <h1>${otp}</h1>
       <p>Valid for 5 minutes</p>
     `,
