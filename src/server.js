@@ -8,15 +8,19 @@ import http from "http";
 
 const PORT = process.env.PORT || 5000;
 
-// Connect Database
-connectDB();
+// Connect Database and Start Server
+connectDB()
+  .then(() => {
+    const server = http.createServer(app);
 
-const server = http.createServer(app);
+    // ⚡ Init Socket.IO
+    initSocket(server);
 
-// ⚡ Init Socket.IO
-initSocket(server);
-
-// Start Server
-server.listen(PORT, () => {
-  console.log(`🔥 Server running on http://localhost:${PORT}`);
-});
+    server.listen(PORT, () => {
+      console.log(`🔥 Server running on http://localhost:${PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.error("Failed to connect to Database", err);
+    process.exit(1);
+  });
