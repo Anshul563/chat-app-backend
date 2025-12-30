@@ -7,16 +7,18 @@ console.log("DEBUG EMAIL_USER:", process.env.EMAIL_USER);
 console.log("DEBUG EMAIL_PASS:", process.env.EMAIL_PASS);
 
 const transporter = nodemailer.createTransport({
-  service: "gmail",
+  host: "smtp-relay.brevo.com",
+  port: 587,
+  secure: false,
   auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
+    user: process.env.BREVO_SMTP_USER,
+    pass: process.env.BREVO_SMTP_PASS,
   },
 });
 
 export const sendOtpEmail = async (email, otp) => {
   await transporter.sendMail({
-    from: `"Chat App" <${process.env.EMAIL_USER}>`,
+    from: `"Chat App" <${process.env.BREVO_SMTP_USER}>`,
     to: email,
     subject: "Your OTP Code",
     html: `
